@@ -48,11 +48,13 @@ on:
   push:
     branches: [ "main" ]
 
+  workflow_dispatch:
+
 env:
-  PROJECT_ID: YOUR_PROJECT_ID # TODO: update Google Cloud project id
-  GAR_LOCATION: YOUR_GAR_LOCATION # TODO: update Artifact Registry location
-  SERVICE: YOUR_SERVICE_NAME # TODO: update Cloud Run service name
-  REGION: YOUR_SERVICE_REGION # TODO: update Cloud Run service region
+  PROJECT_ID: quixotic-market-402317
+  GAR_LOCATION: europe-west3
+  SERVICE: cloud-project-frontend
+  REGION: europe-west3
 
 jobs:
   deploy:
