@@ -111,6 +111,14 @@ jobs:
 
       - name: Build and Push frontend container
         run: |-
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "This workflow was triggered by a workflow_dispatch event."
+            echo "The environment is ${{ github.event.inputs.env }}"
+            echo "The version is ${{ github.event.inputs.version }}"
+          elif [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "This workflow was triggered by a push event."
+            echo "The tag is ${GITHUB_REF#refs/tags/}"
+          fi
           cd ./frontend
           docker build -t cloud-project-frontend .
           docker tag cloud-project-frontend "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-project-registry/cloud-project-frontend:${GITHUB_REF#refs/tags/}"
