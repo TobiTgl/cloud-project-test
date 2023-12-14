@@ -46,7 +46,10 @@ name: Build container and push into registry
 
 on:
   push:
-    branches: [ "main" ]
+    # branches:
+    #   - 'master'
+    tags:
+      - 'v*'
 
   workflow_dispatch:
 
@@ -97,15 +100,15 @@ jobs:
         run: |-
           cd ./frontend
           docker build -t cloud-project-frontend .
-          docker tag cloud-project-frontend "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-project-registry/cloud-project-frontend:${{ github.sha }}"
-          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-project-registry/cloud-project-frontend:${{ github.sha }}"
+          docker tag cloud-project-frontend "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-project-registry/cloud-project-frontend:${GITHUB_REF#refs/tags/}"
+          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-project-registry/cloud-project-frontend:${GITHUB_REF#refs/tags/}"
 
       - name: Build and Push backend container
         run: |-
           cd ./backend
           docker build -t cloud-project-backend .
-          docker tag cloud-project-frontend "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-project-registry/cloud-project-backend:${{ github.sha }}"
-          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-project-registry/cloud-project-backend:${{ github.sha }}"
+          docker tag cloud-project-frontend "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-project-registry/cloud-project-backend:${GITHUB_REF#refs/tags/}"
+          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-project-registry/cloud-project-backend:${GITHUB_REF#refs/tags/}"
 
       # END - Docker auth and build
 
