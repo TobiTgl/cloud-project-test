@@ -1,4 +1,4 @@
-name: Build container and push into registry
+name: Deploy
 
 on:
   workflow_dispatch:
