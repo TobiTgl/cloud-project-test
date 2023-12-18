@@ -40,4 +40,4 @@ jobs:
           service: cloud-project-frontend
           region: europe-west3
           # NOTE: If using a pre-built image, update the image name here
-          image: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-project-frontend:v0.0.0
+          image: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-project-registry/cloud-project-frontend:v0.0.0
